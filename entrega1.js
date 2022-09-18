@@ -209,6 +209,10 @@ function limpiar() {
 	
 }
 
+
+
+//mostrardores de menu
+
 let productosEnCarrito = []
 
 function mostrarMenuPizzas(array) { 
@@ -501,6 +505,8 @@ function mostrarMenuCafe() {
 
 
 
+
+
 function agregarAlCarritoCafe (cafe) {
 	productosEnCarrito.push(postre)
 	console.log(productosEnCarrito)
@@ -515,8 +521,83 @@ function agregarAlCarritoCafe (cafe) {
 
 
 
+let botonCarrito = document.getElementById("botonCarrito")
+let modalBody = document.getElementById("modal-body")
+let botonFinalizarCompra = document.getElementById("botonFinalizarCompra")
+let parrafoCompra = document.getElementById('precioTotal')
+
+botonCarrito.addEventListener("click", ()=>{
+    cargarProductosCarrito(productosEnCarrito)
+})
 
 
+
+
+
+function cargarProductosCarrito(array){
+    modalBody.innerHTML = ""
+
+    array.forEach((productoCarrito)=>{
+
+        modalBody.innerHTML += `
+        <div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.version}" style="max-width: 540px;">
+            <img class="card-img-top" src="images/${productoCarrito.imagen}" alt="${productoCarrito.version}">
+            <div class="card-body">
+                    <h4 class="card-title">${productoCarrito.size}</h4>
+                
+                    <p class="card-text">$${productoCarrito.precio}</p> 
+                    <button class= "btn btn-danger" id="botonEliminar"><i class="fas fa-trash-alt"></i></button>
+            </div>    
+        
+        
+        </div>`
+
+    })
+    //calcular el total
+    compraTotal(array)
+}
+
+
+
+
+function compraTotal(array){
+    let acumulador = 0
+
+    acumulador = array.reduce((acumulador, productoCarrito)=>{
+        return acumulador + productoCarrito.precio
+    },0)
+    // console.log(`EL total hasta ahora es: ${acumulador}`)
+    if(acumulador == 0){
+        parrafoCompra.innerHTML = `<strong>No hay productos en el carrito</strong>`
+    }
+    else{
+        parrafoCompra.innerHTML = `El total de su carrito es ${acumulador}`
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//botones de menues
 
 
 let mostrarMenuPizzasBtn = document.getElementById("mostrarPizzasBtn")
@@ -563,6 +644,8 @@ let mostrarMenuCompleto = document.getElementById("mostrarMenuBtn")
 
 
 
+//boton buscar
+
 
 let buttonBuscar = document.getElementById("buttonBuscar")
 
@@ -572,7 +655,7 @@ buttonBuscar.addEventListener("click", buscarPorPlato )
 
 
 
-
+//Buscador de platos
 
 function buscarPorPlato() {
 	let buscarPlato = document.getElementById("buscarPlato")
@@ -684,6 +767,8 @@ function buscarPorPlato() {
 
 
 
+//Creacion de clientes 
+
 
 function Cliente(nombre,apellido,calle,numeracion,telefono) {
 	this.nombre = nombre;
@@ -721,15 +806,21 @@ function crearCliente(array) {
 	console.log(array)
 }
 
-
+//Almacenamiento el LocalStorage
 
 let clienteNuevo = document.getElementById("clienteNuevo")
 
 clienteNuevo.addEventListener("click", ()=>{
 	crearCliente(arrayClientes);
-	alert("Felicidades! Ya eres cliente registrado. Tu codigo de cliente es: " );
 
+	alert("Felicidades! Ya eres cliente registrado. En breves instantes te llegara un sms con tu código de cliente");
+	let arrayClientesJSON = JSON.stringify(arrayClientes);
+	localStorage.setItem("Clientes", arrayClientesJSON)
 })
 
+
+
+let arrayMenuJSON = JSON.stringify(arrayMenu);
+localStorage.setItem("array de menu JSON", arrayMenuJSON)
 
 
