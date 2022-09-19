@@ -533,6 +533,18 @@ botonCarrito.addEventListener("click", ()=>{
 
 
 
+botonFinalizarCompra.addEventListener ("click", () => {
+	
+	let productosEnCarritoJSON = JSON.stringify(productosEnCarrito);
+	sessionStorage.setItem("compra", productosEnCarritoJSON);
+})
+
+
+
+
+
+
+
 
 function cargarProductosCarrito(array){
     modalBody.innerHTML = ""
