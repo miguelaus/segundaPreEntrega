@@ -508,7 +508,7 @@ function mostrarMenuCafe() {
 
 
 function agregarAlCarritoCafe (cafe) {
-	productosEnCarrito.push(postre)
+	productosEnCarrito.push(cafe)
 	console.log(productosEnCarrito)
 
 }
@@ -540,20 +540,38 @@ function cargarProductosCarrito(array){
     array.forEach((productoCarrito)=>{
 
         modalBody.innerHTML += `
-        <div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.version}" style="max-width: 540px;">
-            <img class="card-img-top" src="images/${productoCarrito.imagen}" alt="${productoCarrito.version}">
-            <div class="card-body">
-                    <h4 class="card-title">${productoCarrito.size}</h4>
-                
-                    <p class="card-text">$${productoCarrito.precio}</p> 
-                    <button class= "btn btn-danger" id="botonEliminar"><i class="fas fa-trash-alt"></i></button>
-            </div>    
-        
-        
-        </div>`
+
+	        <div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.version}" style="max-width: 200px;">
+	            <img class="card-img-top" src="images/${productoCarrito.imagen}" alt="${productoCarrito.version}">
+	            <div class="card-body">
+	                    <h4 class="card-title">${productoCarrito.size}</h4>
+	                
+	                    <p class="card-text">$${productoCarrito.precio}</p> 
+	                    <button class= "btn btn-danger" id="botonEliminar"><i class="fas fa-trash-alt"></i></button>
+	            </div>    
+	        
+	        
+	        </div>`
 
     })
     //calcular el total
+    function compraTotal(array){
+    let acumulador = 0
+
+    acumulador = array.reduce((acumulador, productoCarrito)=>{
+        return acumulador + productoCarrito.precio
+    },0)
+    // console.log(`EL total hasta ahora es: ${acumulador}`)
+    if(acumulador == 0){
+        parrafoCompra.innerHTML = `<strong>No hay productos en el carrito</strong>`
+    }
+    else{
+        parrafoCompra.innerHTML = `El total de su carrito es ${acumulador}`
+    }
+}
+
+
+   
     compraTotal(array)
 }
 
@@ -644,7 +662,7 @@ let mostrarMenuCompleto = document.getElementById("mostrarMenuBtn")
 
 
 
-//boton buscar
+//boton buscar general
 
 
 let buttonBuscar = document.getElementById("buttonBuscar")
@@ -674,6 +692,10 @@ function buscarPorPlato() {
 	mostrarMenuPizzas();
 	break;
 
+	case "pizza":
+	mostrarMenuPizzas();
+	break;
+
 	case "flan" :
 	mostrarMenuPostres();
 	break; 
@@ -685,6 +707,10 @@ function buscarPorPlato() {
 	case "fruta":
 	mostrarMenuPostres();
 	break; 
+
+	case "carne":
+	mostrarMenuCarne();
+	break;
 
 	case "vacio" :
 	mostrarMenuCarne();
@@ -707,6 +733,10 @@ function buscarPorPlato() {
 	break; 
 
 	case "pasta":
+	mostrarMenuPasta();
+	break;
+
+	case "spaghetti":
 	mostrarMenuPasta();
 	break;
 
