@@ -517,7 +517,7 @@ function agregarAlCarritoCafe (cafe) {
 
 
 
-
+// Carrito y Botones del Carrito
 
 
 
@@ -536,7 +536,8 @@ botonCarrito.addEventListener("click", ()=>{
 botonFinalizarCompra.addEventListener ("click", () => {
 	
 	let productosEnCarritoJSON = JSON.stringify(productosEnCarrito);
-	sessionStorage.setItem("compra", productosEnCarritoJSON);
+	localStorage.setItem("Compra", productosEnCarritoJSON);
+	alert("Muchas gracias por tu compra, en breves instantes llegará a tu domicilio")
 })
 
 
@@ -588,7 +589,7 @@ function cargarProductosCarrito(array){
 }
 
 
-
+//Compra total
 
 function compraTotal(array){
     let acumulador = 0
@@ -604,17 +605,6 @@ function compraTotal(array){
         parrafoCompra.innerHTML = `El total de su carrito es ${acumulador}`
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -863,6 +853,6 @@ clienteNuevo.addEventListener("click", ()=>{
 
 
 let arrayMenuJSON = JSON.stringify(arrayMenu);
-localStorage.setItem("array de menu JSON", arrayMenuJSON)
+localStorage.setItem("Menu", arrayMenuJSON)
 
 
